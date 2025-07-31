@@ -1,0 +1,27 @@
+﻿@page "/hello"
+
+@inject NavigationManager navManager;
+
+<h3>Welcome to Blazor Day 1!</h3>
+
+<h3>Hello, @userName!</h3>
+
+<input type="text" @oninput="GreetingText" placeholder="Enter your name" class="form-control" />
+
+<button @onclick="NavigateToHome">Go Home</button>
+
+<a href="/101">Go Home - 101</a>
+
+@code{
+    private string userName = "";
+
+    private void GreetingText(ChangeEventArgs args)
+    {
+        userName = Convert.ToString(args.Value);
+    }
+
+    private void NavigateToHome()
+    {
+        navManager.NavigateTo("/");
+    }
+}

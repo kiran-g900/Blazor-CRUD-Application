@@ -1,0 +1,12 @@
+﻿@page "/products"
+@using BlazorBasicsDay1_Hosted.Client.Services
+@inject IProductService ProductService;
+
+<h3>Products</h3>
+
+<ul>
+    @foreach(var products in ProductService.GetProducts())
+    {
+        <li>@products</li>
+    }
+</ul>

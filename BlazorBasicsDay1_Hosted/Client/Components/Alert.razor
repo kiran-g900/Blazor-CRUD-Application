@@ -1,0 +1,11 @@
+﻿<div class="alert @AlertClass">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public string AlertClass { get; set; } = "alert-info";
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+}

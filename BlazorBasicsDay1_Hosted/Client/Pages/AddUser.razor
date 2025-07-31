@@ -1,0 +1,63 @@
+﻿@using BlazorBasicsDay1_Hosted.Client.Models
+@using Microsoft.AspNetCore.Components.Forms
+
+<h4>Add New User</h4>
+
+<EditForm Model="NewUser" OnValidSubmit="SubmitUser">
+    <div class="mb-3">
+        <label>Name:</label>
+        <InputText class="form-control" @bind-Value="NewUser.Name" />
+    </div>
+
+    <div class="mb-3">
+        <label>Age:</label>
+        <InputNumber class="form-control" @bind-Value="NewUser.Age" />
+    </div>
+
+    <div class="mb-3">
+        <label>Email:</label>
+        <input class="form-control" type="email" @bind="NewUser.Email" />
+    </div>
+
+    <div class="mb-3">
+        <label>Gender:</label>
+        <InputSelect class="form-control" @bind-Value="NewUser.Gender">
+            <option value="">--Select--</option>
+            <option>Male</option>
+            <option>Female</option>
+        </InputSelect>
+    </div>
+
+    <div class="mb-3">
+        <label>Address:</label>
+        <InputTextArea class="form-control" @bind-Value="NewUser.Address" />
+        </div>
+
+    <button class="btn btn-success" type="submit">Add User</button>
+
+    <div class="mb-3">
+
+        <DataAnnotationsValidator />
+
+        <ValidationSummary class="alert alert-danger mt-3" style="left:5px;" />
+
+        <ValidationMessage For="@(()=> NewUser.Gender)" />
+
+        <ValidationMessage For="@(() => NewUser.Email)" />
+
+    </div>
+
+</EditForm>
+
+@code {
+    [Parameter]
+    public EventCallback<UserModel> OnUserAdded { get; set; }
+
+    private UserModel NewUser = new();
+
+    private async Task SubmitUser()
+    {
+        await OnUserAdded.InvokeAsync(NewUser);
+        NewUser = new(); // Reset form
+    }
+}

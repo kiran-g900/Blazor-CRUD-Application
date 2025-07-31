@@ -1,0 +1,71 @@
+﻿@page "/userform"
+@using BlazorBasicsDay1_Hosted.Client.Models
+
+<h3>User Information Form</h3>
+
+<div class="mb-3">
+    <label>Name:</label>
+    <input type="text" class="form-control" @bind="user.Name" />
+</div>
+
+<div class="mb-3">
+    <label>Age:</label>
+    <input type="number" class="form-control" @bind="user.Age" />
+</div>
+
+<div class="mb-3">
+    <label>Email:</label>
+    <input type="email" class="form-control" @bind="user.Email" />
+</div>
+
+<div class="mb-3">
+    <label>Gender:</label>
+    <select class="form-control" @bind="user.Gender">
+        <option value="" selected>-Select Gender-</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <input type="checkbox" @bind="user.IsConditionAgreed" required /> Agree to the terms & conditions
+</div>
+
+<button class="btn btn-primary" @onclick="SubmitForm" disabled="@(user.IsConditionAgreed)">Submit</button>
+
+@if (isSubmitted)
+{
+    @if (user.Gender == "")
+    {
+        <div class="alert alert-danger mt-3">
+            <strong>Please select the gender</strong>
+        </div>
+    }
+    else if (!user.IsConditionAgreed)
+    {
+        <div class="alert alert-danger mt-3">
+            <strong>Please accept the terms & conditions</strong>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-success mt-3">
+            <strong>Submitted Info:</strong><br />
+            Name: @user.Name <br />
+            Age: @user.Age <br />
+            Email: @user.Email <br />
+            Gender: @user.Gender
+        </div>        
+    }
+}
+
+@code
+{
+    private UserModel user = new UserModel();
+    private bool isSubmitted = false;
+
+    private void SubmitForm()
+    {
+        isSubmitted = true;        
+    }    
+}

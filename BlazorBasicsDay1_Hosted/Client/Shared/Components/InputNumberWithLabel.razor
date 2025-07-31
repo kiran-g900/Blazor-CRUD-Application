@@ -1,0 +1,23 @@
+﻿@using System.Linq.Expressions
+@using Microsoft.AspNetCore.Components.Forms
+@typeparam TValue
+
+<div class="mb-3">
+    <label class="form-label">@Label</label>
+    <InputNumber Value="Value"
+                 ValueChanged="ValueChanged"
+                 ValueExpression="ValueExpression"
+                 class="form-control"
+                 id="@Id" />
+
+    <ValidationMessage For="ValueExpression" />
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; }
+    [Parameter] public string Id { get; set; } = Guid.NewGuid().ToString();
+
+    [Parameter] public TValue Value { get; set; }
+    [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
+    [Parameter] public Expression<Func<TValue>> ValueExpression { get; set; }
+}

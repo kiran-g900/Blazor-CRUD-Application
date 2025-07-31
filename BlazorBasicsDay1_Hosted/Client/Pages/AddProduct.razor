@@ -1,0 +1,46 @@
+﻿@using BlazorBasicsDay1_Hosted.Client.Models
+@using Microsoft.AspNetCore.Components.Forms
+
+<h4>AddProduct</h4>
+
+<EditForm Model="NewProduct" OnValidSubmit="SubmitProduct">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label>ID</label>
+        <InputNumber class="form-control" @bind-Value="NewProduct.Id" />
+    </div>
+
+    <div class="mb-3">
+        <label>Name</label>
+        <InputText class="form-control" @bind-Value="NewProduct.Name" />
+        <ValidationMessage For="@(() => NewProduct.Name)" />
+    </div>
+
+    <div class="mb-3">
+        <label>Price</label>
+        <InputNumber class="form-control" @bind-Value="NewProduct.Price" />
+        <ValidationMessage For="@(() => NewProduct.Price)" />
+    </div>
+
+    <button class="btn btn-success" type="submit">Add Product</button>
+
+</EditForm>
+
+
+
+@code {
+
+    [Parameter]
+    public EventCallback<ProductsModel> OnProductAdded { get; set; }
+
+    private ProductsModel NewProduct = new();
+
+    private async Task SubmitProduct()
+    {
+        await OnProductAdded.InvokeAsync(NewProduct);
+        NewProduct = new();
+    }
+}

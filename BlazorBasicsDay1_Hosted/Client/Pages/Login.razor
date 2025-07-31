@@ -1,0 +1,54 @@
+﻿@page "/login"
+@using BlazorBasicsDay1_Hosted.Client.Auth
+@using BlazorBasicsDay1_Hosted.Client.Models
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@inject CustomAuthStateProvider AuthProvider
+@inject NavigationManager Nav
+
+<h3>Login</h3>
+
+<EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator />
+    @* <ValidationSummary /> *@
+
+    <div class="mb-3">
+        <label>Username:</label>
+        <InputText class="form-control" @bind-Value="loginModel.Username" />
+        <p>
+            <ValidationMessage For="(() => loginModel.Username)" />
+        </p>
+    </div>
+    <div class="mb-3">
+        <label>Password:</label>
+        <InputText class="form-control" @bind-Value="loginModel.Password" />
+        <ValidationMessage For="(() => loginModel.Password)" />
+    </div>
+    <div class="mb-3">
+        <label>Role:</label>
+        <select class="form-control" @bind="loginModel.Role">
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
+        </select>
+    </div>
+
+    <button class="btn btn-success" type="submit">Login</button>
+</EditForm>
+
+
+@code {
+    private LoginModel loginModel = new();
+
+    private async Task HandleLogin()
+    {
+        if (!string.IsNullOrWhiteSpace(loginModel.Username))
+        {
+            var customAuth = (CustomAuthStateProvider)AuthStateProvider;
+            await customAuth.LoginAsync(loginModel.Username, loginModel.Role);
+            Nav.NavigateTo("/");
+        }
+    }
+
+    [Inject]
+    public AuthenticationStateProvider AuthStateProvider { get; set; }
+}

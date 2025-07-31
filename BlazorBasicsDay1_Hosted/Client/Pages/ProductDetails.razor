@@ -1,0 +1,33 @@
+﻿@page "/product-details/{id:int}"
+@using BlazorBasicsDay1_Hosted.Client.Models
+@using BlazorBasicsDay1_Hosted.Client.Services
+@inject IProductService ProductService
+
+<h3>ProductDetails</h3>
+
+@if(product == null)
+{
+    <p><em>No Product Found...</em></p>
+}
+else
+{
+    <div>
+        <p><strong>Id:</strong> @product.Id</p>
+        <p><strong>Name:</strong> @product.Name</p>
+        <p><strong>Price:</strong> ₹@product.Price</p>
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public int id { get; set; }
+
+    private ProductsModel product;
+
+    protected override async Task OnInitializedAsync()
+    {
+        product = await ProductService.GetProductByIdAsync(id);
+    }
+
+}

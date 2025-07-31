@@ -1,0 +1,51 @@
+﻿@page "/edit-product/{id:int}"
+@using BlazorBasicsDay1_Hosted.Client.Models
+@using BlazorBasicsDay1_Hosted.Client.Services
+@using Microsoft.AspNetCore.Components.Forms
+@using BlazorBasicsDay1_Hosted.Client.Shared
+@inject IProductService ProductService
+@inject NavigationManager Navigation
+
+<h3>Edit Product</h3>
+
+@if (product == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    @* <EditForm Model="@product" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-2">
+            <label>Name:</label>
+            <InputText class="form-control" @bind-Value="product.Name" />
+        </div>
+        <div class="mb-2">
+            <label>Price:</label>
+            <InputNumber class="form-control" @bind-Value="product.Price" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Update</button>
+    </EditForm> *@
+    <ProductForm NewProduct="product" SubmitProduct="HandleValidSubmit"/>
+}
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    private ProductsModel product;
+
+    protected override async Task OnInitializedAsync()
+    {
+        product = await ProductService.GetProductByIdAsync(id);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        await ProductService.UpdateProductAsync(product);
+        Navigation.NavigateTo("/products-api");
+    }
+}

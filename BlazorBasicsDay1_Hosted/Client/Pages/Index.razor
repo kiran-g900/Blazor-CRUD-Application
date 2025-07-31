@@ -1,0 +1,10 @@
+﻿@page "/{id:int?}"
+
+<h1>Hello, world!</h1>
+
+<h3>User ID: @id</h3>
+
+@code{
+    [Parameter]
+    public int? id { get; set; }
+}

@@ -1,0 +1,11 @@
+E:\Blazor\BlazorBasicsDay1_Hosted\Shared\bin\Debug\net7.0\BlazorBasicsDay1_Hosted.Shared.deps.json
+E:\Blazor\BlazorBasicsDay1_Hosted\Shared\bin\Debug\net7.0\BlazorBasicsDay1_Hosted.Shared.dll
+E:\Blazor\BlazorBasicsDay1_Hosted\Shared\bin\Debug\net7.0\BlazorBasicsDay1_Hosted.Shared.pdb
+E:\Blazor\BlazorBasicsDay1_Hosted\Shared\obj\Debug\net7.0\BlazorBasicsDay1_Hosted.Shared.GeneratedMSBuildEditorConfig.editorconfig
+E:\Blazor\BlazorBasicsDay1_Hosted\Shared\obj\Debug\net7.0\BlazorBasicsDay1_Hosted.Shared.AssemblyInfoInputs.cache
+E:\Blazor\BlazorBasicsDay1_Hosted\Shared\obj\Debug\net7.0\BlazorBasicsDay1_Hosted.Shared.AssemblyInfo.cs
+E:\Blazor\BlazorBasicsDay1_Hosted\Shared\obj\Debug\net7.0\BlazorBasicsDay1_Hosted.Shared.csproj.CoreCompileInputs.cache
+E:\Blazor\BlazorBasicsDay1_Hosted\Shared\obj\Debug\net7.0\BlazorBasicsDay1_Hosted.Shared.dll
+E:\Blazor\BlazorBasicsDay1_Hosted\Shared\obj\Debug\net7.0\refint\BlazorBasicsDay1_Hosted.Shared.dll
+E:\Blazor\BlazorBasicsDay1_Hosted\Shared\obj\Debug\net7.0\BlazorBasicsDay1_Hosted.Shared.pdb
+E:\Blazor\BlazorBasicsDay1_Hosted\Shared\obj\Debug\net7.0\ref\BlazorBasicsDay1_Hosted.Shared.dll

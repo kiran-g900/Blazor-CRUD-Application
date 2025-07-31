@@ -1,0 +1,51 @@
+﻿@page "/userlist"
+@using BlazorBasicsDay1_Hosted.Client.Models
+
+<h3>User List</h3>
+
+<AddUser OnUserAdded="HandleUserAdded" />
+
+<button class="btn btn-danger" @onclick="ResetUserList">Reset User List</button>
+
+@if (users.Any())
+{
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Gender</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in users)
+            {
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@user.Age</td>
+                    <td>@user.Email</td>
+                    <td>@user.Gender</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No users added yet.</p>
+}
+
+@code {
+    private List<UserModel> users = new();
+
+    private void HandleUserAdded(UserModel newUser)
+    {        
+        users.Add(newUser);
+    }
+
+    private void ResetUserList()
+    {
+        users.Clear();
+    }
+}

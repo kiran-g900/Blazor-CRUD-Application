@@ -1,0 +1,57 @@
+﻿@page "/add-custom-product"
+@using System.ComponentModel.DataAnnotations
+@using BlazorBasicsDay1_Hosted.Client.Components
+@using Microsoft.AspNetCore.Components.Forms
+@using System.Text.Json
+@inject NavigationManager Navigation
+@using BlazorBasicsDay1_Hosted.Client.Shared.Components
+
+<EditForm Model="@productModel" OnValidSubmit="HandleValidSubmit">
+   @*  <DataAnnotationsValidator />
+    <ValidationSummary /> *@
+
+    <InputTextWithLabel Label="Product Name"                        
+                        @bind-Value="productModel.Name"
+                        placeholder="Enter product name" />
+
+    <InputTextWithLabel Label="Description"                        
+                        @bind-Value="productModel.Description"
+                        placeholder="Enter description" />
+
+    <InputNumberWithLabel Label="Price" @bind-Value="productModel.Price" />
+
+    <button class="btn btn-primary" type="submit">Save</button>
+   
+</EditForm>
+
+@if (!string.IsNullOrEmpty(addMessage))
+{
+    <br />
+    <Alert AlertClass="@(isAdded ? "alert-success" : "alert-danger")"> @JsonSerializer.Serialize(addMessage);</Alert>
+}
+
+@code {
+    private ProductInputModel productModel = new();
+    private bool isAdded = false;
+    private string addMessage = "";
+
+    private void HandleValidSubmit()
+    {
+        //Console.WriteLine($"Name: {productModel.Name}, Description: {productModel.Description}");
+        isAdded = true;
+        addMessage =  $"Name: {productModel.Name}, Description: {productModel.Description},Price: { productModel.Price}";
+    }
+
+    public class ProductInputModel
+    {
+        [Required(ErrorMessage = "Product name is required")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Description is required")]
+        public string Description { get; set; }
+
+        [Required]
+        [Range(1, 100000, ErrorMessage = "Price must be between 1 and 100000")]
+        public decimal Price { get; set; }
+    }
+}

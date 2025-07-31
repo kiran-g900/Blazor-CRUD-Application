@@ -1,0 +1,61 @@
+﻿@using BlazorBasicsDay1_Hosted.Client.Auth
+@using Microsoft.AspNetCore.Components.Authorization
+@inherits LayoutComponentBase
+
+<div class="container mt-3">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
+        <a class="navbar-brand" href="/">My Blazor App</a>
+        <div class="navbar-nav">
+            <NavLink class="nav-link" href="/">Home</NavLink>
+            @* <NavLink class="nav-link" href="/counter">Counter</NavLink>
+            <NavLink class="nav-link" href="/hello">Hello</NavLink> *@
+            <NavLink class="nav-link" href="/userform">User Form</NavLink>
+            <NavLink class="nav-link" href="/userlist">User Listing</NavLink>
+            <NavLink class="nav-link" href="/products">Products</NavLink>
+            <NavLink class="nav-link" href="/products-api">Products-Api</NavLink>
+            <NavLink class="nav-link" href="/add-custom-product">Products-Custom-Reusable</NavLink>
+            <NavLink class="nav-link" href="/testmodal">Test Page</NavLink>
+
+            <AuthorizeView Roles="Admin">
+                <NavLink class="nav-link" href="/admin">Admin Page</NavLink>
+            </AuthorizeView>
+
+            <AuthorizeView Roles="User">
+                <NavLink class="nav-link" href="/user">User Dashboard</NavLink>
+            </AuthorizeView>
+
+
+            <AuthorizeView>
+                <Authorized>
+                    <NavLink class="nav-link" href="/secure">Secure Page</NavLink>
+                </Authorized>
+                <NotAuthorized>
+                    <a href="/login" class="nav-link">Login</a>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
+    </nav>
+
+    <AuthorizeView>
+        <Authorized>
+            <span>Hello, @context.User.Identity.Name!</span>
+            <button @onclick="Logout">Logout</button>
+        </Authorized>      
+    </AuthorizeView>
+
+    <div class="content">
+        @Body
+    </div>
+</div>
+
+
+@code {
+    [Inject] CustomAuthStateProvider AuthProvider { get; set; }
+    [Inject] NavigationManager Nav { get; set; }
+
+    private async Task Logout()
+    {
+       await AuthProvider.LogoutAsync();
+        Nav.NavigateTo("/login");
+    }
+}

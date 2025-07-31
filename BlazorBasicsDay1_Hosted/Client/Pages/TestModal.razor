@@ -1,0 +1,37 @@
+﻿@page "/testmodal"
+@using BlazorBasicsDay1_Hosted.Client.Shared
+
+<h3>Test Modal</h3>
+
+<button class="btn btn-success" @onclick="() => showModal = true">Open Modal</button>
+
+<Modal Title="Confirmation"
+    IsVisible="showModal"
+    OnConfirm="HandleConfirm"
+    OnCancel="HandleCancel">
+    <p>Are you sure you want to continue?</p>
+</Modal>
+
+@if (!string.IsNullOrEmpty(userResponse))
+{
+    <div class="mt-3 alert alert-info">
+        @userResponse
+    </div>
+}
+
+@code {
+    private bool showModal = false;
+    private string userResponse = string.Empty;
+
+    private void HandleConfirm()
+    {
+        userResponse = "You clicked Confirm.";
+        showModal = false;
+    }
+
+    private void HandleCancel()
+    {
+        userResponse = "You clicked Cancel.";
+        showModal = false;
+    }
+}

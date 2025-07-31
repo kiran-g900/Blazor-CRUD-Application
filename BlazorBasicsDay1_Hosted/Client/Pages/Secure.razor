@@ -1,0 +1,6 @@
+﻿@page "/secure"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Admin")]
+
+<h3>Protected Page</h3>
+<p>This content is only visible to Admin.</p>
